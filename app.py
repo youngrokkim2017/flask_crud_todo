@@ -20,10 +20,10 @@ class Todo(db.Model):
     # function to return a string everytime a new element is created
     def __repr__(self):
         return '<Task %r>' % self.id
-        
+
 
 # index route
-@app.route('/')
+@app.route('/', methods=['POST', 'GET']) # adds two methods to this route
 # define function for that route
 def index():
     return render_template('index.html')
