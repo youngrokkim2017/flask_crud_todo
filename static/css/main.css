@@ -1,4 +1,25 @@
 body {
     margin: 0;
     font-family: sans-serif;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
 }
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+.content {
+    width: 70%;
+    /* display: inline-block; */
+}
+
+/* .header {
+    text-align: center;
+} */

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -26,7 +26,25 @@ class Todo(db.Model):
 @app.route('/', methods=['POST', 'GET']) # adds two methods to this route
 # define function for that route
 def index():
-    return render_template('index.html')
+    # if the request sent to this method is POST...
+    if request.method == 'POST':
+        # logic for adding a task
+        task_content = request.form['content']
+        # create model for this, create todo object
+        new_task = Todo(content=task_content)
+
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding task'
+    else:
+        # this looks at all the db content in the order it was created and return all
+        tasks = Todo.query.order_by(Todo.date_created).all()
+        # display all current tasks in table
+        return render_template('index.html', tasks=tasks)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
